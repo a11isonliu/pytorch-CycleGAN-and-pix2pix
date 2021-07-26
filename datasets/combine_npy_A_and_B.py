@@ -10,21 +10,14 @@ def image_write(path_A, path_B, path_AB):
     
     im_A = np.load(path_A) # MDI
     im_B = np.load(path_B) # HMI
-    im_A_resized = np.resize(im_A, im_B.shape)
-    print(im_A_resized.shape, im_B.shape)
+    im_A_resized = cv2.resize(im_A, im_B.shape, interpolation = cv2.INTER_CUBIC)
     # im_A = Image.fromarray(A_arr)
     # im_B = Image.fromarray(B_arr)
     # im_A = cv2.imread(path_A, 1) # python2: cv2.CV_LOAD_IMAGE_COLOR; python3: cv2.IMREAD_COLOR
     # im_B = cv2.imread(path_B, 1) # python2: cv2.CV_LOAD_IMAGE_COLOR; python3: cv2.IMREAD_COLOR
-    print("in image_write")
     im_AB = np.concatenate([im_A_resized, im_B], 1)
-    print("in image_write after")
-    print(im_AB.shape)
 
-    # print(im_AB)
     np.save(path_AB, im_AB)
-    # status = cv2.imwrite(path_AB, im_AB)
-    # print(status)
 
 
 parser = argparse.ArgumentParser('create image pairs')
